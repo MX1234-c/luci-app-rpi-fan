@@ -61,11 +61,13 @@ jobs:
         run: |
           set -euo pipefail
           version=$(sed -n 's/^PKG_VERSION:=//p' Makefile)
-          if gh release view "v$version" >/dev/null 2>&1; then
-            echo "Release v$version already exists; leaving its files unchanged. New build remains in Actions artifacts."
+          revision=$(sed -n 's/^PKG_RELEASE:=//p' Makefile)
+          tag="v$version-r$revision"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists; leaving its files unchanged. New build remains in Actions artifacts."
             exit 0
           fi
-          gh release create "v$version" release/* \
+          gh release create "$tag" release/* \
             --target "$GITHUB_SHA" \
-            --title "v$version — OpenWrt 25.12 APK" \
+            --title "$tag — OpenWrt 25.12 APK" \
             --notes-file docs/RELEASE-NOTES.md

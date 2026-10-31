@@ -51,6 +51,7 @@ cp /etc/config/rpi-fan /root/rpi-fan-config.backup
 ```
 
 下载新版本和校验文件，校验通过后再次 `apk add --allow-untrusted /tmp/新版本.apk`。
+安装钩子会重启控制器，确保新脚本被载入；升级完成后再次检查 `ubus call rpi-fan status`。
 UCI 配置声明为 conffile；检查并保留已有配置，关注可能产生的 `.apk-new` 文件。
 不要同时执行旧的 `install.sh` 和 APK 升级。
 

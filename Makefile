@@ -31,6 +31,7 @@ define Package/luci-app-rpi-fan/postinst
 #!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
 	/etc/init.d/rpcd restart || exit 1
+	/etc/init.d/rpi-fan restart || exit 1
 fi
 exit 0
 endef
