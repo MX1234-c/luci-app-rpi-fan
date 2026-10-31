@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-rpi-fan
-PKG_VERSION:=1.0.1
+PKG_VERSION:=1.1.0
 PKG_RELEASE:=1
 PKG_LICENSE:=MIT
 PKGARCH:=all
@@ -18,6 +18,21 @@ endef
 
 define Package/luci-app-rpi-fan/conffiles
 /etc/config/rpi-fan
+endef
+
+define Package/luci-app-rpi-fan/description
+ LuCI hardware PWM fan control for Raspberry Pi 3B+ on OpenWrt 25.12.
+ GPIO18 / pwmchip0 / pwm0 must already be enabled by a boot overlay.
+ Includes automatic temperature control, manual duty, fail-safe cooling,
+ UCI configuration, a procd service and read-only ubus status.
+endef
+
+define Package/luci-app-rpi-fan/postinst
+#!/bin/sh
+if [ -z "$${IPKG_INSTROOT}" ]; then
+	/etc/init.d/rpcd restart || exit 1
+fi
+exit 0
 endef
 
 define Build/Configure
