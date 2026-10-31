@@ -23,7 +23,10 @@ SHA256：`51f0f253dd0a44438dc92e6d726d2925b27924ca82b9fb58c7b6f842d6481624`。
 - 安装后 ubus：running=true、reason=normal、pwm_ok=true。
 
 r2 只修正 noarch/项目 URL 元数据，控制器与 r1 相同。
-**r1 → r2 实机升级和 APK 卸载尚未验证；安装测试不能代替升级/卸载测试。**
+r1 → r2 实机升级成功（apk 输出 1.1.0-r1 -> 1.1.0-r2），SHA256 校验通过。
+升级后与安装前备份 cmp 一致；ubus running=true、reason=normal、pwm_ok=true、target=actual=0。
+procd 确认进程运行，开机启动 enabled 检查通过。
+**APK 卸载尚未实机验证；升级测试不能代替卸载测试。**
 其他硬件、GPIO、固件版本、风扇真实 RPM、长期运行未经验证。
 
 ## 自动测试和审查
