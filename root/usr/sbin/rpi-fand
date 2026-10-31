@@ -1,0 +1,67 @@
+#!/bin/sh
+. /lib/functions.sh
+. /usr/lib/rpi-fan/control.sh
+chip=/sys/class/pwm/pwmchip0
+pwm=$chip/pwm0
+status=/var/run/rpi-fan.json
+active=0
+previous=0
+last_reason=
+load_config() {
+ # Defaults do not hide missing / invalid configuration.
+ if ! config_load rpi-fan; then enabled=invalid; return; fi
+ config_get enabled main enabled invalid
+ config_get mode main mode invalid
+ config_get manual main manual invalid
+ config_get minimum main minimum invalid
+ config_get stop main stop invalid
+ config_get start main start invalid
+ config_get full main full invalid
+ config_get critical main critical invalid
+}
+publish() {
+ read -r up rest < /proc/uptime
+ up=${up%%.*}
+ # Only numeric data and internal enumerations enter JSON.
+ temp_json=null
+ uint "$temp" 0 150000 && temp_json=$temp
+ actual=null
+ raw=$(read_pwm duty_cycle)
+ if uint "$raw" 0 1000000 && [ "$(read_pwm enable)" = 1 ] && [ "$(read_pwm period)" = 1000000 ]; then
+  actual=$((raw / 10000))
+ fi
+ printf '{"running":true,"updated":%s,"temperature":%s,"target":%s,"actual":%s,"reason":"%s","pwm_ok":%s}\n' \
+  "$up" "$temp_json" "$target" "$actual" "$reason" "$ok" > "$status.tmp" && mv "$status.tmp" "$status"
+}
+cleanup() {
+ trap - 0 TERM INT
+ # Keep cooling on service stop/restart/shutdown; never unexport.
+ apply_pwm 100 || logger -t rpi-fan 'Unable to set shutdown full speed'
+ rm -f "$status" "$status.tmp"
+}
+trap cleanup 0
+trap 'exit 0' TERM INT
+while :; do
+ load_config
+ temp=$(cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null)
+ choose "$temp"
+ ok=true
+ # One second full-speed kick when starting a stopped fan.
+ if [ "$previous" = 0 ] && [ "$target" -gt 0 ] && [ "$target" -lt 100 ]; then
+  if apply_pwm 100; then sleep 1; else ok=false; fi
+ fi
+ if apply_pwm "$target"; then previous=$target
+ else
+  ok=false
+  reason=pwm_error
+  previous=0
+  # Best effort cooling, without claiming successful control.
+  apply_pwm 100 >/dev/null 2>&1 || :
+ fi
+ if [ "$last_reason" != "$reason" ]; then
+  logger -t rpi-fan "Control state: $reason"
+  last_reason=$reason
+ fi
+ publish
+ sleep 2
+done

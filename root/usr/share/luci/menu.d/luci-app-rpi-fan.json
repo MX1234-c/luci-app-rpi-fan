@@ -1,0 +1,8 @@
+{
+ "admin/services/rpi-fan": {
+  "title": "树莓派风扇",
+  "order": 90,
+  "action": {"type": "view", "path": "rpi-fan"},
+  "depends": {"acl": ["luci-app-rpi-fan"], "uci": {"rpi-fan": true}}
+ }
+}

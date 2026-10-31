@@ -1,0 +1,15 @@
+#!/bin/sh
+case "$1" in
+ list) printf '{"status":{}}\n';;
+ call)
+  [ "$2" = status ] || exit 1
+  updated=$(jsonfilter -i /var/run/rpi-fan.json -e '@.updated' 2>/dev/null)
+  read -r up rest < /proc/uptime
+  up=${up%%.*}
+  case "$updated" in ''|*[!0-9]*) printf '{"running":false}\n'; exit 0;; esac
+  if [ "$updated" -le "$up" ] && [ "$((up - updated))" -le 10 ]; then
+   cat /var/run/rpi-fan.json
+  else printf '{"running":false}\n'; fi
+ ;;
+ *) exit 1;;
+esac

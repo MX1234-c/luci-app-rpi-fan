@@ -1,0 +1,7 @@
+{
+ "luci-app-rpi-fan": {
+  "description": "Read fan status and configure Raspberry Pi PWM fan",
+  "read": {"ubus": {"rpi-fan": ["status"]}, "uci": ["rpi-fan"]},
+  "write": {"uci": ["rpi-fan"]}
+ }
+}

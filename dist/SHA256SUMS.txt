@@ -1,0 +1,1 @@
+d85b4d5e6e659f2af0cee03c2d348c13afbef51a22da9320e7f2a243a6c6da79  luci-app-rpi-fan-1.0.0.tar.gz
