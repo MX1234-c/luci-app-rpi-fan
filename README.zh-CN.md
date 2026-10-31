@@ -1,6 +1,6 @@
 # 树莓派 3B+ LuCI 硬件 PWM 风扇控制
 
-版本 1.0.0。面向 OpenWrt 25.12.6；提供可直接部署的源文件和官方 SDK 软件包配方。
+版本 1.0.1。面向 OpenWrt 25.12.6；提供可直接部署的源文件和官方 SDK 软件包配方。
 **此交付不是已编译 APK，也未在你的树莓派上运行过。**
 
 ## 已固定的硬件接口
@@ -26,18 +26,18 @@ apk update
 apk add luci-base rpcd uci jsonfilter
 ```
 
-将交付的 `luci-app-rpi-fan-1.0.0.tar.gz` 上传到树莓派 `/tmp/`。
+将交付的 `luci-app-rpi-fan-1.0.1.tar.gz` 上传到树莓派 `/tmp/`。
 例如在电脑上使用 scp；地址换成你的路由器地址：
 
 ```sh
-scp luci-app-rpi-fan-1.0.0.tar.gz root@192.168.1.1:/tmp/
+scp luci-app-rpi-fan-1.0.1.tar.gz root@192.168.1.1:/tmp/
 ```
 
 然后在树莓派执行：
 
 ```sh
 cd /tmp
-tar -xzf luci-app-rpi-fan-1.0.0.tar.gz
+tar -xzf luci-app-rpi-fan-1.0.1.tar.gz
 cd luci-app-rpi-fan
 sh install.sh
 sleep 3

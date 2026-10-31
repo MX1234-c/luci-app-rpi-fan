@@ -40,3 +40,9 @@ PASS (both; run from Git Bash so Unix utilities are on PATH)
 
 上述目标环境验收步骤见 README.zh-CN.md；tests/on-device.sh 是只读检查脚本。
 最终归档由交付打包步骤逐文件核对内容、LF 行尾、路径和执行权限，并生成 SHA256。
+
+## 1.0.1 回归
+
+用户实机后台 trace 将失败定位在 printf 写入 duty_cycle 的返回值。
+改为已在目标设备验证的 echo 路径；新增模拟 printf 输出后返回错误的回归测试，先失败再通过。
+完整开发机测试重跑通过。该修复仍待目标 procd 服务环境验证。

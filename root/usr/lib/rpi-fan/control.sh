@@ -26,11 +26,13 @@ choose() {
  else target=$((minimum + (100 - minimum) * ($1 - start * 1000) / ((full - start) * 1000)))
  fi
 }
-put() { printf '%s\n' "$2" > "$pwm/$1"; }
+# Values are internal enum "normal" or validated integers. Use echo, matching
+# the target's verified sysfs interface; retain the actual write exit status.
+put() { echo "$2" > "$pwm/$1"; }
 read_pwm() { cat "$pwm/$1" 2>/dev/null; }
 prepare_pwm() {
  if [ ! -d "$pwm" ]; then
-  printf '0\n' > "$chip/export" || return 1
+  echo 0 > "$chip/export" || return 1
   n=0
   while [ ! -d "$pwm" ] && [ "$n" -lt 3 ]; do sleep 1; n=$((n + 1)); done
  fi

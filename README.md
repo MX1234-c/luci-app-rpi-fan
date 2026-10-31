@@ -5,7 +5,7 @@
 支持网页手动占空比、自动温控与滞回、开关与阈值配置、运行状态、procd 开机自启和停机全速保护。通过 UCI 保存配置，rpcd/ubus 提供只读状态。
 
 - [中文安装与使用说明](README.zh-CN.md)
-- [部署包](dist/luci-app-rpi-fan-1.0.0.tar.gz)
+- [部署包](dist/luci-app-rpi-fan-1.0.1.tar.gz)
 - [SHA256 校验](dist/SHA256SUMS.txt)
 - [测试记录](TEST-REPORT.md)
 
