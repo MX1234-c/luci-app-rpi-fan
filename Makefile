@@ -2,9 +2,9 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-rpi-fan
 PKG_VERSION:=1.1.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_LICENSE:=MIT
-PKGARCH:=all
+PKG_URL:=https://github.com/MX1234-c/luci-app-rpi-fan
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -13,6 +13,7 @@ define Package/luci-app-rpi-fan
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
   TITLE:=Raspberry Pi hardware PWM fan control
+  PKGARCH:=all
   DEPENDS:=+luci-base +rpcd +uci +jsonfilter
 endef
 
