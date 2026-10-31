@@ -9,12 +9,13 @@ Arbitrary GPIO switching is deliberately omitted. It requires a matching boot
 overlay/pinmux and reboot; a UCI value cannot implement that. Do not alter boot
 files, networking or the user's running controller during packaging.
 
-- [ ] Add release workflow, package lifecycle and reproducible build instructions.
-- [ ] Add lifecycle regression test, then implement postinst RPC registration.
-- [ ] Update public installation/upgrade/migration/removal documentation.
-- [ ] Run tests and an independent packaging review.
-- [ ] Build APK with official SDK, verify successful job and published assets.
-- [ ] If feasible, install the APK on the already-authorized Pi and verify state.
+- [x] Add release workflow, package lifecycle and reproducible build instructions.
+- [x] Add lifecycle regression test, then implement postinst RPC registration.
+- [x] Update public installation/upgrade/migration/removal documentation.
+- [x] Run tests and an independent packaging review.
+- [x] Build APK with official SDK, verify successful job and published assets.
+- [x] Install first APK r1 on the authorized Pi and verify config preservation/status.
+- [ ] Optional final r1-to-r2 on-device upgrade (terminal re-login needed).
 
 Risks checked: offline image-root scripts, preserved UCI, unmanaged deployment
 migration, unsigned third-party APK disclosure, boot overlay prerequisites,

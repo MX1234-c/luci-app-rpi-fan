@@ -4,6 +4,7 @@
 
 **支持范围：树莓派 3B+ · OpenWrt 25.12.6 · GPIO18 / PWM0 · 1 kHz。**
 PWM 设备树 overlay 必须预先启用；本包不修改启动分区，不支持任意 GPIO 在线切换。
+APK 的 noarch 表示文件是脚本和网页资源，不表示兼容任意硬件。
 
 ## 安装 APK
 
@@ -22,7 +23,7 @@ apk add --allow-untrusted /tmp/luci-app-rpi-fan-实际版本.apk
 
 - [完整安装、升级、旧版迁移、卸载说明](docs/INSTALL.md)
 - [版本发布说明](docs/RELEASE-NOTES.md)
-- [测试记录及验证范围](TEST-REPORT.md)
+- [软件包测试记录及验证范围](TEST-REPORT-1.1.0.md)
 - [更新记录](CHANGELOG.md)
 - [原始脚本部署说明](README.zh-CN.md)
 

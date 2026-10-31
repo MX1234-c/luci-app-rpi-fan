@@ -58,7 +58,9 @@ UCI 配置声明为 conffile；检查并保留已有配置，关注可能产生�
 ## 4. 从 install.sh 旧版迁移
 
 先备份 `/etc/config/rpi-fan`。旧脚本部署的文件尚未受 APK 管理。
-先按旧版 README 的“直接部署卸载”清单移除程序文件并保留配置，
+已在本项目原始脚本版本验证可直接安装 APK 接管，原 UCI 配置保留，默认配置另存为 `.apk-new`。
+先运行 `apk add --simulate --allow-untrusted /tmp/实际文件.apk` 检查事务，确认只安装本插件再实际安装。
+如果你的旧版文件来自其他 fork 并发生冲突，按旧版 README 的“直接部署卸载”清单移除程序文件并保留配置，
 再安装 APK，恢复配置，执行 enable 和 restart。不要使用全局 `--force-overwrite` 绕过不明文件冲突。
 停止服务会尝试保持全速；迁移期间人工关注散热，完成后检查 `pwm_ok=true`。
 
